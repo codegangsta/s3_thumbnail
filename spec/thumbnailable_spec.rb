@@ -36,12 +36,18 @@ end
 
 describe S3Thumbnail::Thumbnailable do
   before do
-    avatar_path = File.expand_path("../../../fixtures/avatar.png", __FILE__)
+    avatar_path = File.expand_path("../fixtures/avatar.png", __FILE__)
 
     @model = ThumbnailableSpecTarget.new
 
-    s3 = AWS::S3.new(s3_endpoint: 'localhost', s3_port: '5678',
-                     use_ssl: false, s3_force_path_style: true)
+    s3 = AWS::S3.new(
+      s3_endpoint: 'localhost',
+      s3_port: '5678',
+      use_ssl: false,
+      s3_force_path_style: true,
+      access_key_id: 'YOUR_ACCESS_KEY_ID',
+      secret_access_key: 'YOUR_SECRET_ACCESS_KEY'
+    )
     @bucket = s3.buckets.create('specs')
 
     # Upload the file

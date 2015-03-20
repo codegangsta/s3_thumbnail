@@ -5,8 +5,7 @@ require "active_model"
 require "aws-sdk"
 
 @fakes3 = Thread.new do
-  require 'fakes3/cli'
-  FakeS3::CLI.start(['--root', Rails.root.join('tmp/fakes3'), '--port', '5678', '--silent'])
+  FakeS3::CLI.start(['--root', File.expand_path('../../tmp/fakes3', __FILE__), '--port', '5678', '--silent'])
 end
 
 S3Thumbnail.configure do |config|
