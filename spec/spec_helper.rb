@@ -1,7 +1,25 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 's3_thumbnail'
-require 's3direct'
-require 'active_model'
+require "s3_thumbnail"
+require "s3direct"
+require "active_model"
+require "aws-sdk"
+
+@fakes3 = Thread.new do
+  require 'fakes3/cli'
+  FakeS3::CLI.start(['--root', Rails.root.join('tmp/fakes3'), '--port', '5678', '--silent'])
+end
+
+S3Thumbnail.configure do |config|
+  S3Direct.config.bucket_url = 'http://localhost:5678/'
+  config.bucket = S3Direct.config.bucket = 'specs'
+end
+
+AWS.config(
+  s3_endpoint: 'localhost',
+  s3_port: 5678,
+  use_ssl: false,
+  s3_force_path_style: true
+)
 
 RSpec.configure do |config|
   # Stolen from braintree/curator.  Allows creating classes in specs
