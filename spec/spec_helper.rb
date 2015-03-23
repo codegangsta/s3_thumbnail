@@ -5,8 +5,11 @@ require "active_model"
 require "aws-sdk"
 
 @fakes3 = Thread.new do
-  FakeS3::CLI.start(['--root', File.expand_path('../../tmp/fakes3', __FILE__), '--port', '5678', '--silent'])
+  require "fakes3/cli"
+  FakeS3::CLI.start(['--root', File.expand_path('../../tmp/fakes3', __FILE__), '--port', '5678'])
 end
+
+sleep(1)
 
 S3Thumbnail.configure do |config|
   S3Direct.config.bucket_url = 'http://localhost:5678/'
@@ -17,37 +20,7 @@ AWS.config(
   s3_endpoint: 'localhost',
   s3_port: 5678,
   use_ssl: false,
-  s3_force_path_style: true
+  s3_force_path_style: true,
+  access_key_id: 'YOUR_ACCESS_KEY_ID',
+  secret_access_key: 'YOUR_SECRET_ACCESS_KEY'
 )
-
-RSpec.configure do |config|
-  # Stolen from braintree/curator.  Allows creating classes in specs
-  # that won't pollute after the fact
-  config.around(:each) do |test|
-    @transient_classes = []
-    test.call
-    @transient_classes.each do |name|
-      begin
-        Object.send(:remove_const, name)
-      rescue Exception => e
-        puts e.message
-        puts e.backtrace
-      end
-    end
-  end
-
-  def def_transient_class(name, &block)
-    @transient_classes << name
-    raise("Cannot define transient class, constant #{name} is already defined") if Object.const_defined?(name)
-    Object.const_set name, Class.new(&block)
-  end
-
-  def add_transient_subclass(name, parent_class, &block)
-    @transient_classes << name
-    if block_given?
-      Object.const_set name, Class.new(parent_class, &block)
-    else
-      Object.const_set name, Class.new(parent_class)
-    end
-  end
-end

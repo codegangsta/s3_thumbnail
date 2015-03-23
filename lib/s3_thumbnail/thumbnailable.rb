@@ -34,7 +34,7 @@ module S3Thumbnail
         # Grab original from S3 and store in a tmpfile
         infile = Tempfile.new('image', "tmp/", encoding: 'binary')
         original.read { |chunk| infile.write(chunk) }
-        thumbnail_generation = ThumbnailGeneration.new(infile)
+        thumbnail_generation = Generation.new(infile)
 
         styles.each do |style, config|
           begin
