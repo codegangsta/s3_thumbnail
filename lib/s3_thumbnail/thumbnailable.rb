@@ -1,3 +1,5 @@
+require "s3_style"
+
 module S3Thumbnail
   module Thumbnailable
     extend ActiveSupport::Concern

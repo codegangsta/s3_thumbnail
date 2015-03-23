@@ -8,7 +8,6 @@ require "aws-sdk"
   require "fakes3/cli"
   FakeS3::CLI.start(['--root', File.expand_path('../../tmp/fakes3', __FILE__), '--port', '5678'])
 end
-
 sleep(1)
 
 S3Thumbnail.configure do |config|
