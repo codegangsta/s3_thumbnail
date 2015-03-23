@@ -9,13 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jeremy Saenz"]
   spec.email         = ["jeremy.saenz@gmail.com"]
 
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
-  end
-
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Easy image thumbnails for the s3direct gem}
+  spec.description   = %q{s3_thumbnail will generate thumbnails for s3direct files}
+  spec.homepage      = "http://github.com/codegangsta/s3_thumbnail"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
