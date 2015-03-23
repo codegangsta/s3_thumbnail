@@ -1,4 +1,5 @@
 require "s3_style"
+require "s3direct"
 
 module S3Thumbnail
   module Thumbnailable
@@ -28,7 +29,7 @@ module S3Thumbnail
       return unless s3_file.exists?
 
       s3       = AWS::S3.new
-      bucket   = s3.buckets[S3Thumbnail.config.bucket]
+      bucket   = s3.buckets[S3Direct.config.bucket]
       original = bucket.objects[s3_file.key]
 
       begin

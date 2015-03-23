@@ -10,9 +10,9 @@ require "aws-sdk"
 end
 sleep(1)
 
-S3Thumbnail.configure do |config|
-  S3Direct.config.bucket_url = 'http://localhost:5678/'
-  config.bucket = S3Direct.config.bucket = 'specs'
+S3Direct.configure do |config|
+  config.bucket_url = 'http://localhost:5678/'
+  config.bucket = 'specs'
 end
 
 AWS.config(
