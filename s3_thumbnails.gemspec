@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'mini_magick', '~> 3.7.0'
+  spec.add_dependency 'mini_magick', '~> 3.7'
   spec.add_dependency 'activesupport', '>= 3.2.0'
   spec.add_dependency 's3_style', '>= 0.1.0'
   spec.add_dependency "s3direct", '>= 0.1.0'
